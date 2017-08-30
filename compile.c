@@ -231,6 +231,9 @@ struct iseq_compile_data_ensure_node_stack {
 #define ADD_CALL_RECEIVER(seq, line) \
   ADD_INSN((seq), (line), putself)
 
+#define ADD_VCALL(seq, line, id) \
+  ADD_SEND_R((seq), (line), (id), INT2FIX(0), NULL, (VALUE)INT2FIX(VM_CALL_FCALL | VM_CALL_VCALL), NULL)
+
 #define ADD_CALL(seq, line, id, argc) \
   ADD_SEND_R((seq), (line), (id), (argc), NULL, (VALUE)INT2FIX(VM_CALL_FCALL), NULL)
 
@@ -4314,6 +4317,22 @@ iseq_compile_each0(rb_iseq_t *iseq, LINK_ANCHOR *const ret, NODE *node, int popp
 #define BEFORE_RETURN debug_node_end()
 
     switch (type) {
+      case NODE_PATTERN:{
+		if (!popped) {
+
+  		  VALUE rb_cPattern = rb_const_get(rb_cObject, rb_intern("PatternMatch"));
+   		  VALUE pat = node->nd_lit;
+
+		  ADD_INSN1(ret, line, putobject, rb_cPattern);
+	      ADD_INSN(ret, line, putself);
+		  ADD_VCALL(ret, line, rb_intern("binding"));
+		  ADD_CALL(ret, line, rb_intern("save_binding"), INT2FIX(1));
+		  ADD_INSN(ret, line, pop);
+
+		  ADD_INSN1(ret, line, putobject, pat);
+      }
+      break;
+	}
       case NODE_BLOCK:{
 	while (node && nd_type(node) == NODE_BLOCK) {
 	    CHECK(COMPILE_(ret, "BLOCK body", node->nd_head,

@@ -888,7 +888,7 @@ static void token_info_pop_gen(struct parser_params*, const char *token, size_t 
 %token <node> tNTH_REF tBACK_REF
 %token <num>  tREGEXP_END
 
-%type <node> singleton strings string string1 xstring regexp
+%type <node> singleton strings string string1 xstring regexp pattern
 %type <node> string_contents xstring_contents regexp_contents string_content
 %type <node> words symbols symbol_list qwords qsymbols word_list qword_list qsym_list word
 %type <node> literal numeric simple_numeric dsym cpath
@@ -952,7 +952,7 @@ static void token_info_pop_gen(struct parser_params*, const char *token, size_t 
 %token tDSTAR		"**arg"
 %token tAMPER		"&"
 %token tLAMBDA		"->"
-%token tSYMBEG tSTRING_BEG tXSTRING_BEG tREGEXP_BEG tWORDS_BEG tQWORDS_BEG tSYMBOLS_BEG tQSYMBOLS_BEG
+%token tSYMBEG tSTRING_BEG tXSTRING_BEG tREGEXP_BEG tWORDS_BEG tQWORDS_BEG tSYMBOLS_BEG tQSYMBOLS_BEG tPATTERN_BEG
 %token tSTRING_DBEG tSTRING_DEND tSTRING_DVAR tSTRING_END tLAMBEG tLABEL_END
 
 /*
@@ -2449,6 +2449,7 @@ primary		: literal
 		| qsymbols
 		| var_ref
 		| backref
+		| pattern
 		| tFID
 		    {
 		    /*%%%*/
@@ -3700,6 +3701,20 @@ regexp		: tREGEXP_BEG regexp_contents tREGEXP_END
 			$$ = new_regexp($2, $3);
 		    }
 		;
+pattern		: tPATTERN_BEG string_contents tSTRING_END
+		    {
+		  	VALUE rb_cPattern = rb_const_get(rb_cObject, rb_intern("PatternMatch"));
+			VALUE pat = rb_funcall(rb_cPattern, rb_intern("new"), 1, $2->nd_lit);
+			VALUE pm_variables = rb_funcall(pat, rb_intern("pattern_variables"), 0);
+			int i;
+			for(i=0; i< RARRAY_LEN(pm_variables); i++){
+				fprintf(stderr, "parse.y variable: <%s>\n", RSTRING_PTR(RARRAY_AREF(pm_variables, i)));
+				local_var(rb_intern(RSTRING_PTR(RARRAY_AREF(pm_variables, i))));
+			}
+			fprintf(stderr, "parse.y pattern: <%s>\n", RSTRING_PTR($2->nd_lit));
+			$$ = NEW_PATTERN(pat);
+
+		    }
 
 words		: tWORDS_BEG ' ' tSTRING_END
 		    {
@@ -7588,6 +7603,10 @@ parse_percent(struct parser_params *parser, const int space_seen, const enum lex
 	    lex_strterm = NEW_STRTERM(str_ssym, term, paren);
 	    SET_LEX_STATE(EXPR_FNAME|EXPR_FITEM);
 	    return tSYMBEG;
+
+	  case 'p':
+	    lex_strterm = NEW_STRTERM(str_squote, term, paren);
+	    return tPATTERN_BEG;
 
 	  default:
 	    yyerror("unknown type of %string");
