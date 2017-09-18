@@ -29,6 +29,8 @@ class PatternTree
         read_hash
       when :variable
         read_variable
+      when :class_name
+        read_class_name
       when :regexp
       when :comma
       when :array_end
@@ -111,7 +113,12 @@ class PatternTree
     val = current_token.val
     @index += 1
     @variables << val
-    node = Node::VariableNode.new(val)
+    Node::VariableNode.new(val)
+  end
+
+  def read_class_name
+    node = Node::ClassNameNode.new(current_token.val)
+    @index += 1
     node
   end
 

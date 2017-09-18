@@ -1,5 +1,15 @@
-if %p(_Integer) =~ 0
-  p 'it is iteger'
+obj = 1
+if %p(_Integer) =~ obj
+  p 'it is integer'
+else
+  p 'it is not integer'
+end
+
+obj = 'a'
+if %p(_Integer) =~ obj
+  p 'it is integer'
+else
+  p 'it is not integer'
 end
 
 user = { name: 'yuki', from: 'Fukuoka' }

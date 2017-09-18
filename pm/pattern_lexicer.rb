@@ -14,6 +14,7 @@ class PatternLexicer
 
 
   LITERALS = {
+    /_[A-Z][a-z0-9]*/   => { type: :class_name },
     /\d+/               => { type: :integer },
     /'.*'/              => { type: :string },
     /".*"/              => { type: :string },
