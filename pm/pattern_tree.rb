@@ -32,6 +32,7 @@ class PatternTree
       when :class_name
         read_class_name
       when :regexp
+        read_regexp
       when :comma
       when :array_end
       when :hash_end
@@ -53,6 +54,12 @@ class PatternTree
 
   def read_string
     node = Node::StringNode.new(current_token.val)
+    @index += 1
+    node
+  end
+
+  def read_regexp
+    node = Node::RegexpNode.new(current_token.val)
     @index += 1
     node
   end

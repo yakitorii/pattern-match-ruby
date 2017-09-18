@@ -7,8 +7,6 @@ class PatternLexicer
 
   START_OPERATERS = {
     /\[/      => { type: :array_st },
-    /\//   => { type: :regexp_st },
-
     /\{/  => { type: :hash_st },
   }.freeze
 
@@ -23,7 +21,7 @@ class PatternLexicer
     /:".*"/             => { type: :symbol },
     /[a-z][a-z0-9]*:/   => { type: :hash_symbol_key },
     VARIABLE_REGEXPS    => { type: :variable },
-    /\/.*\/ /           => { type: :regexps },
+    /\/.*\//            => { type: :regexp },
   }.freeze
 
   DELIMITERS = {
