@@ -15,15 +15,15 @@ class PatternLexicer
   LITERALS = {
     /_[A-Z][a-z0-9]*/   => { type: :class_name },
     /\d+/               => { type: :integer },
-    /'.*'/              => { type: :string },
-    /".*"/              => { type: :string },
-    /\".*\"/              => { type: :string },
+    /'.*?'/             => { type: :string },
+    /".*?"/             => { type: :string },
+    /\".*\"/            => { type: :string },
     /:[a-z][a-z0-9]*/   => { type: :symbol },
-    /:'.*'/             => { type: :symbol },
-    /:".*"/             => { type: :symbol },
+    /:'.*?'/            => { type: :symbol },
+    /:".*?"/            => { type: :symbol },
     /[a-z][a-z0-9]*:/   => { type: :hash_symbol_key },
     VARIABLE_REGEXPS    => { type: :variable },
-    /\/.*\//            => { type: :regexp },
+    /\/.*?\//           => { type: :regexp },
   }.freeze
 
   DELIMITERS = {
