@@ -1,6 +1,6 @@
 require_relative './pattern_lexicer.rb'
-require_relative './pattern_tree.rb'
 require_relative './node/base.rb'
+require_relative './pattern_tree.rb'
 
 class PatternMatch
   attr_reader :tree, :pattern_variables
