@@ -21,7 +21,7 @@ module Node
 
     def check_elements(args, result)
       args.each do |k, v|
-        element_k, element_v = search_element(k)
+        _element_k, element_v = search_element(k)
         if element_v
           result = element_v.match?(v, result: result)
         end
