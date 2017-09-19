@@ -86,6 +86,7 @@ Init_version(void)
 void
 ruby_show_version(void)
 {
+    printf("pattern-match-");
     PRINT(description);
 #ifdef RUBY_LAST_COMMIT_TITLE
     fputs("last_commit=" RUBY_LAST_COMMIT_TITLE, stdout);
