@@ -1,5 +1,6 @@
 require 'strscan'
 class PatternLexicer
+  class TokenizeError < StandardError; end
   attr_reader :tokens
   END_TOKEN_TYPE = :end
 
@@ -16,6 +17,7 @@ class PatternLexicer
     /\d+/               => { type: :integer },
     /'.*'/              => { type: :string },
     /".*"/              => { type: :string },
+    /\".*\"/              => { type: :string },
     /:[a-z][a-z0-9]*/   => { type: :symbol },
     /:'.*'/             => { type: :symbol },
     /:".*"/             => { type: :symbol },
@@ -64,7 +66,7 @@ class PatternLexicer
       end
 
       unless pattern_data
-        raise @scanner.string[@scanner.pos..-1].inspect
+        raise PatternLexicer::TokenizeError.new("Cannot tokenize #{@scanner.string}, scaned token: #{tokens}, rest: #{@scanner.string[@scanner.pos..-1].inspect}")
       end
     end
     tokens
