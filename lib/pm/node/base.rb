@@ -27,12 +27,12 @@ module Node
     def check_class(args)
       expected = self.class::TYPE
       got  =  args.class.to_s
-      expected  == got || raise(ClassNotMatchError.new(expected: expected, got: got))
+      expected == got || raise(ClassNotMatchError.new(expected: expected, got: got))
     end
 
     def check_length(args)
-      expected = args.length
-      got = elements.length
+      got = args.length
+      expected = elements.length
       expected  == got || raise(LengthNotMatchError.new(expected: expected, got: got))
     end
   end
