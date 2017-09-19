@@ -14,7 +14,7 @@ class PatternTree
   end
 
   def read_token
-    p read_toke_tye: current_token.type
+    p read_toke_tye: current_token.type if $VERBOSE
     case current_token.type
       when PatternLexicer::END_TOKEN_TYPE
         raise
@@ -78,7 +78,7 @@ class PatternTree
         next
       end
       element = read_token
-      p array_el: element
+      p array_el: element if $VERBOSE
       array_node.add_element element
     end
 

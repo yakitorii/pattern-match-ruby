@@ -3708,10 +3708,10 @@ pattern		: tPATTERN_BEG string_contents tSTRING_END
 			VALUE pm_variables = rb_funcall(pat, rb_intern("pattern_variables"), 0);
 			int i;
 			for(i=0; i< RARRAY_LEN(pm_variables); i++){
-				fprintf(stderr, "parse.y variable: <%s>\n", RSTRING_PTR(RARRAY_AREF(pm_variables, i)));
+				rb_warning("parse.y variable: <%s>", RSTRING_PTR(RARRAY_AREF(pm_variables, i)));
 				local_var(rb_intern(RSTRING_PTR(RARRAY_AREF(pm_variables, i))));
 			}
-			fprintf(stderr, "parse.y pattern: <%s>\n", RSTRING_PTR($2->nd_lit));
+			rb_warning("parse.y pattern: <%s>", RSTRING_PTR($2->nd_lit));
 			$$ = NEW_PATTERN(pat);
 
 		    }

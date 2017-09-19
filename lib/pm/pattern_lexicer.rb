@@ -39,7 +39,7 @@ class PatternLexicer
   ALL_TOKEN_PATTERNS  = START_OPERATERS.merge(LITERALS).merge(DELIMITERS).merge(END_OPERATERS)
 
   def initialize str
-    p pattern_str_lexier: str
+    p pattern_str_lexier: str if $VERBOSE
     @pattern_str = str
     @scanner = StringScanner.new(@pattern_str)
     @tokens = (scan_tokens) + [Token.new(val: nil, type: END_TOKEN_TYPE)]
