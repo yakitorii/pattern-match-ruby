@@ -50,7 +50,7 @@ class PatternLexicer
     return tokens if @scanner.eos?
 
     while !@scanner.eos?
-      @scanner.scan(/\s/)
+      @scanner.scan(/\s*/)
       pattern_data =  ALL_TOKEN_PATTERNS.detect do |pattern, data|
         str_val = @scanner.scan(pattern)
 
