@@ -414,7 +414,7 @@ ruby-glommed.$(OBJEXT):
 	$(Q) $(LD) -r -o $@ $(OBJS)
 
 clean-local::
-	$(Q)$(RM) ext/extinit.c ext/extinit.$(OBJEXT) ext/ripper/y.output \
+	$(Q)$(RM) ext/extinit.c ext/extinit.$(OBJEXT) \
 		enc/encinit.c enc/encinit.$(OBJEXT)
 	-$(Q)$(RM) $(pkgconfig_DATA)
 	-$(Q)$(RMALL) ruby-runner$(EXEEXT) ruby-runner.h *.dSYM
