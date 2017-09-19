@@ -10,7 +10,7 @@ class PatternMatch
   end
 
   def initialize str
-    tokens =  PatternLexicer.new(str).tokens
+    tokens =  PatternLexicer.new(str.strip).tokens
     p  tokens: tokens
     @tree = PatternTree.new(tokens: tokens, index: 0)
     @pattern_variables = @tree.variables
