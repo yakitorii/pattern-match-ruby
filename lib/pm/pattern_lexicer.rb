@@ -74,7 +74,7 @@ class PatternLexicer
 
   class Token
     attr_reader :val, :type
-    def initialize(val: val, type: type)
+    def initialize(val: , type: )
       if type == :hash_symbol_key
         val = ":#{val.gsub(/:$/,  '')}"
         type = :symbol
