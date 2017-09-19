@@ -141,3 +141,5 @@ class Binding
     irb
   end
 end
+
+require 'pm/pattern_match'
