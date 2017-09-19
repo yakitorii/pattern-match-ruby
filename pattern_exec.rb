@@ -1,3 +1,10 @@
+json = JSON.parse %q|{"status":"ok","users":[{"name":"Yuki","roll":"mather"},{"name":"ko1","roll":"father"},{"name":"panda","roll":"baby"}]}|
+
+if %p{ {"status" => "ok",  "users" => users } } =~ json
+  p users
+end
+
+__END__
 obj = 1
 if %p(_Integer) =~ obj
   p 'it is integer'
@@ -19,8 +26,6 @@ when %p({name: name, from: 'Hiroshima'})
 when %p({name: name, from: _})
   p "#{name} is a visitor. welcome!"
 end
-
-__END__
 
 if %p([:ok, x]) =~ [:ok, 200]
    p "Seconnd Element is #{x}"
