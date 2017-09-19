@@ -1,6 +1,7 @@
 Dir[ "#{File.dirname(__FILE__)}/node/*.rb"].each do |file|
-    require file
+  require file
 end
+
 class PatternTree
   class InvalidPatternError < StandardError; end
   attr_reader :node, :variables
