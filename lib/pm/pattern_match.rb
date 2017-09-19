@@ -11,19 +11,19 @@ class PatternMatch
 
   def initialize str
     tokens =  PatternLexicer.new(str.strip).tokens
-    p  tokens: tokens
+    p  tokens: tokens if $VERBOSE
     @tree = PatternTree.new(tokens: tokens, index: 0)
     @pattern_variables = @tree.variables
   end
 
   def =~(val)
-    p node: @tree.node
+    p node: @tree.node if $VERBOSE
     begin
       r = @tree.node.match?(val, result: {})
     rescue Node::PatternMatchError
       return nil
     end
-    p result: r
+    p result: r if $VERBOSE
 
     binding_obj = Thread.current[:pm_binding]
     r.each do |k,v|
