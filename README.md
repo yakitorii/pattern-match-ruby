@@ -11,7 +11,7 @@ Welcome to your feed back via issues or PR.
 
 Before trying this feature, you need build customized Ruby interpreter. See https://github.com/ruby/ruby/  to build and install a ruby interpreter.
 
-For Japanese language users [[MRI のビルド、およびインストール|https://github.com/ko1/rubyhackchallenge/blob/master/2_mri_structure.md#演習-mri-のビルドおよびインストール]] will help you.
+For Japanese language users [MRI のビルド、およびインストール](https://github.com/ko1/rubyhackchallenge/blob/master/2_mri_structure.md#演習-mri-のビルドおよびインストール) will help you.
 
 ## How to try?
 
