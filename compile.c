@@ -4324,7 +4324,7 @@ iseq_compile_each0(rb_iseq_t *iseq, LINK_ANCHOR *const ret, NODE *node, int popp
    		  VALUE pat = node->nd_lit;
 
 		  ADD_INSN1(ret, line, putobject, rb_cPattern);
-	      ADD_INSN(ret, line, putself);
+		  ADD_INSN(ret, line, putself);
 		  ADD_VCALL(ret, line, rb_intern("binding"));
 		  ADD_CALL(ret, line, rb_intern("save_binding"), INT2FIX(1));
 		  ADD_INSN(ret, line, pop);
