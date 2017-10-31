@@ -19,7 +19,7 @@ Basic: use `%p` to write pattern and match operator is `=~`.
 
 ```
 if %p([:ok, x]) =~ [:ok, 200]
-   p "Seconnd Element is #{x}"
+   p "Second Element is #{x}"
 else
    p "Not Match!"
 end
